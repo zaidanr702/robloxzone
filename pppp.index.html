@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Menu — Game Pass & Robux</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0c0c1a 0%, #1a1a2f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .menu-container {
+            max-width: 1280px;
+            width: 100%;
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 2.5rem;
+            padding: 2rem 2rem 2rem 2rem;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 70, 100, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* header */
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            font-size: 2.2rem;
+            color: #e60023;
+            background: #ffffff;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            box-shadow: 0 15px 25px rgba(230, 0, 35, 0.35);
+            transition: 0.2s;
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text p {
+            color: #a0a0c0;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .user-balance {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.7rem 1rem 0.7rem 1.8rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            backdrop-filter: blur(8px);
+        }
+
+        .robux-display {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 600;
+            background: #e60023;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px #e6002340;
+        }
+
+        .robux-display i {
+            font-size: 1.2rem;
+        }
+
+        .avatar-icon {
+            width: 44px;
+            height: 44px;
+            background: #252542;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: 2px solid #e60023;
+            font-size: 1.3rem;
+        }
+
+        /* navigation tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 2.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 40px;
+            color: #9b9bc7;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .nav-item i {
+            font-size: 1rem;
+        }
+
+        .nav-item.active {
+            background: #e60023;
+            color: white;
+            box-shadow: 0 12px 18px -8px #e6002380;
+            border-color: #ff5a7a;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(230, 0, 35, 0.2);
+            color: white;
+            border-color: #e6002360;
+        }
+
+        /* search */
+        .search-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(10, 10, 20, 0.7);
+            border-radius: 60px;
+            padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+        }
+
+        .search-box i {
+            color: #7a7aa9;
+            font-size: 1.2rem;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            padding: 0.9rem 1rem;
+            width: 100%;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #4f4f73;
+            font-weight: 300;
+        }
+
+        .search-box button {
+            background: #e60023;
+            border: none;
+            color: white;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 5px 12px #e6002360;
+        }
+
+        .search-box button:hover {
+            background: #c2001d;
+            transform: scale(1.02);
+        }
+
+        /* category cards */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .category-card {
+            background: rgba(30, 30, 50, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1.8rem;
+            padding: 1.8rem 1rem;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-6px);
+            background: rgba(230, 0, 35, 0.15);
+            border-color: #e60023;
+        }
+
+        .category-icon {
+            width: 75px;
+            height: 75px;
+            background: rgba(230, 0, 35, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 2.2rem;
+            color: #e60023;
+            border: 1px solid rgba(230, 0, 35, 0.3);
+        }
+
+        .category-card h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .category-card p {
+            color: #9595c0;
+            font-size: 0.85rem;
+        }
+
+        /* featured titles */
+        .featured-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2.2rem 0 1.2rem;
+            color: white;
+        }
+
+        .featured-title h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .featured-title a {
+            color: #e60023;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .featured-title a:hover {
+            color: #ff5a7a;
+            gap: 10px;
+        }
+
+        /* item grid */
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            background: rgba(25, 25, 45, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 1.8rem;
+            padding: 1.3rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            border-color: #e60023;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px -10px #0b0b15;
+        }
+
+        .item-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, #20203a, #141428);
+            border-radius: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #e60023;
+            border: 1px solid #2f2f4a;
+        }
+
+        .item-card h4 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-type {
+            color: #7f7fb0;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #e60023;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: auto;
+            margin-bottom: 0.6rem;
+        }
+
+        .item-price i {
+            font-size: 1rem;
+            color: #ffb800;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: transparent;
+            border: 1.5px solid #e60023;
+            color: #e60023;
+            padding: 0.6rem 0;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.15s;
+            margin-top: 0.2rem;
+        }
+
+        .buy-btn:hover {
+            background: #e60023;
+            color: white;
+            border-color: #e60023;
+        }
+
+        /* footer menu */
+        .footer-menu {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 3.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(230, 0, 35, 0.2);
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+
+        .footer-item {
+            text-align: center;
+            color: #8989b5;
+            transition: 0.2s;
+            cursor: pointer;
+            min-width: 70px;
+        }
+
+        .footer-item i {
+            font-size: 1.7rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .footer-item span {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .footer-item:hover {
+            color: #e60023;
+            transform: translateY(-3px);
+        }
+
+        /* responsive */
+        @media (max-width: 600px) {
+            .menu-container { padding: 1.5rem; }
+            .logo-text h1 { font-size: 1.6rem; }
+            .user-balance { padding-left: 1rem; }
+            .robux-display { padding: 0.4rem 1rem; }
+            .nav-item { padding: 0.6rem 1.2rem; }
+            .featured-title h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <!-- header -->
+        <div class="menu-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Roblox<span style="color: #e60023;">Zone</span></h1>
+                    <p>Game Pass & Robux Market</p>
+                </div>
+            </div>
+            <div class="user-balance">
+                <div class="robux-display">
+                    <i class="fas fa-coins"></i>
+                    <span>2,450 Robux</span>
+                </div>
+                <div class="avatar-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- nav tabs -->
+        <div class="nav-tabs">
+            <div class="nav-item active"><i class="fas fa-home"></i> Home</div>
+            <div class="nav-item"><i class="fas fa-ticket-alt"></i> Game Pass</div>
+            <div class="nav-item"><i class="fas fa-coins"></i> Robux</div>
+            <div class="nav-item"><i class="fas fa-crown"></i> Premium</div>
+            <div class="nav-item"><i class="fas fa-gift"></i> Promo</div>
+        </div>
+
+        <!-- search -->
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari Game Pass, Robux, item limited...">
+                <button>Cari</button>
+            </div>
+        </div>
+
+        <!-- main categories -->
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-ticket-alt"></i></div>
+                <h3>Game Pass</h3>
+                <p>200+ Game Pass</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-coins"></i></div>
+                <h3>Robux</h3>
+                <p>Top up murah</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-tshirt"></i></div>
+                <h3>Avatar Items</h3>
+                <p>Skin, hat, outfit</p>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"><i class="fas fa-crown"></i></div>
+                <h3>Premium</h3>
+                <p>Membership</p>
+            </div>
+        </div>
+
+        <!-- featured gamepass -->
+        <div class="featured-title">
+            <h2>🔥 Game Pass Populer</h2>
+            <a href="#">Lihat Semua <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="item-grid">
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-rocket"></i></div>
+                <h4>Fly Game Pass</h4>
+                <div class="item-type">Natural Disaster</div>
+                <div class="item-price"><i class="fas fa-coins"></i> 399</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-shield-alt"></i></div>
+                <h4>VIP Server Access</h4>
+                <div class="item-type">Brookhaven</div>
+                <div class="item-price"><i class="fas fa-coins"></i> 899</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-dragon"></i></div>
+                <h4>Pet Legendary</h4>
+                <div class="item-type">Adopt Me</div>
+                <div class="item-price"><i class="fas fa-coins"></i> 1,299</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-mask"></i></div>
+                <h4>Ninja Skills</h4>
+                <div class="item-type">Ninja Legends</div>
+                <div class="item-price"><i class="fas fa-coins"></i> 599</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+        </div>
+
+        <!-- paket robux -->
+        <div class="featured-title">
+            <h2>💰 Paket Robux</h2>
+            <a href="#">Lihat Semua <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="item-grid">
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-coins"></i></div>
+                <h4>Robux 400</h4>
+                <div class="item-type">Bonus: 0</div>
+                <div class="item-price"><i class="fas fa-tag"></i> Rp 75.000</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-coins"></i></div>
+                <h4>Robux 800</h4>
+                <div class="item-type">Bonus: 50</div>
+                <div class="item-price"><i class="fas fa-tag"></i> Rp 145k</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-crown"></i></div>
+                <h4>Robux 2k</h4>
+                <div class="item-type">Bonus: 200</div>
+                <div class="item-price"><i class="fas fa-tag"></i> Rp 349k</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image"><i class="fas fa-gem"></i></div>
+                <h4>Robux 5k</h4>
+                <div class="item-type">Bonus: 750</div>
+                <div class="item-price"><i class="fas fa-tag"></i> Rp 849k</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+        </div>
+
+        <!-- footer navigation -->
+        <div class="footer-menu">
+            <div class="footer-item"><i class="fas fa-home"></i><span>Beranda</span></div>
+            <div class="footer-item"><i class="fas fa-ticket-alt"></i><span>Game Pass</span></div>
+            <div class="footer-item"><i class="fas fa-coins"></i><span>Robux</span></div>
+            <div class="footer-item"><i class="fas fa-shopping-cart"></i><span>Keranjang</span></div>
+            <div class="footer-item"><i class="fas fa-user"></i><span>Profil</span></div>
+        </div>
+    </div>
+</body>
+</html>
